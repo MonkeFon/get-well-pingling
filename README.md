@@ -25,7 +25,6 @@ Everything in `images/` is served as-is (no build step):
 | `v01.mp4` | The clip in the gallery (served as-is, loaded only when tapped) |
 | `olympiapark.jpg` | Olympiapark tile |
 | `bg3.jpg` | Baldur's Gate 3 tile |
-| `spiderverse.jpg`, `dune.jpg` | Optional pictures for the two cinema tiles (styled gradient + emoji until they exist) |
 
 Photos were resized to 1400 px on the long edge and re-saved without EXIF metadata (no GPS in the repo). To add a gallery photo: resize it, drop it in `images/`, and add an `<li>` to `<ul class="gallery">` (`class="wide"` for landscape shots). The grid has 3 columns on desktop and 2 on phones; a wide tile takes 2 cells, so keep the order such that rows fill up (wide + portrait, or three portraits).
 
@@ -38,6 +37,9 @@ The place photos in the trip tiles come from Wikimedia Commons:
 - Eispalast Dachstein — Falk2, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:I09_814_Dachstein-Eispalast_2012.jpg)
 - Hongya Cave, Chongqing — Jonashtand, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg)
 - Tokyo Tower — David Kernan, [CC BY 4.0](https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg)
+- Manhattan at night (Spider-Verse tile) — Rhododendrites, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Manhattan_at_night_north_of_Rockefeller_Center_(11226).jpg)
+- Erg Chebbi dunes (Dune tile) — Thomas Fuhrmann, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Erg_Chebbi_sunset.jpg)
+- Milky Way (starry nights tile) — Giles Laurent, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:018_Human_looking_at_the_stars_during_Perseids_with_the_Milky_Way_in_the_background_Photo_by_Giles_Laurent.jpg)
 
 Background: "Your Name. Hug" by CLare (free for private, personal use). Bear GIF: milkmochabear.
 
