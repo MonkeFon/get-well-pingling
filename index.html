@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Get Well Soon, Pingling 💛</title>
-<meta name="description" content="A little get-well card for Pingling.">
-<meta property="og:title" content="Get Well Soon, Pingling 💛">
-<meta property="og:description" content="A little note to help you feel better.">
+<meta name="theme-color" content="#0b1030">
+<title>Gute Besserung, Pingling 💛</title>
+<meta name="description" content="Eine kleine Gute-Besserung-Karte für Pingling.">
+<meta property="og:title" content="Gute Besserung, Pingling 💛">
+<meta property="og:description" content="Eine kleine Nachricht, damit es dir schnell wieder besser geht.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg1: #fff1e6;
-    --bg2: #ffe0ec;
-    --bg3: #e8f3ff;
-    --card: rgba(255, 255, 255, 0.72);
-    --ink: #4a3b45;
-    --muted: #8a7580;
-    --rose: #d6396f;
-    --accent: #ff7aa2;
-    --accent2: #ffb86b;
+    --ink: #f5f0e8;
+    --muted: #b9b3cf;
+    --gold: #ffd58a;
+    --pink: #ff9db8;
+    --cyan: #9fe0ff;
+    --thread: #e63b5a;
+    --card: rgba(12, 16, 48, .6);
+    --card-border: rgba(255, 255, 255, .16);
+    --chip: rgba(255, 255, 255, .08);
+    --chip-border: rgba(255, 255, 255, .16);
     --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --font-hand: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
   }
@@ -32,9 +34,7 @@
   body {
     font-family: var(--font-body);
     color: var(--ink);
-    background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
-    background-size: 300% 300%;
-    animation: drift 18s ease-in-out infinite;
+    background: #0b1030;
     min-height: 100vh;
     min-height: 100dvh;
     display: grid;
@@ -43,46 +43,92 @@
     overflow-x: hidden;
   }
 
-  @keyframes drift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  /* Floating hearts & petals in the background */
+  /* ---- Twilight sky (kataware-doki) --------------------------------------- */
   .sky {
     position: fixed;
     inset: 0;
-    pointer-events: none;
-    overflow: hidden;
     z-index: 0;
-  }
-  .float {
-    position: absolute;
-    bottom: -10vh;
-    opacity: 0;
-    animation: rise linear infinite;
-    will-change: transform, opacity;
-    filter: drop-shadow(0 4px 8px rgba(214, 57, 111, .12));
-  }
-  @keyframes rise {
-    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-    10%  { opacity: .85; }
-    90%  { opacity: .85; }
-    100% { transform: translateY(-115vh) translateX(var(--sway)) rotate(var(--spin)); opacity: 0; }
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      radial-gradient(90% 55% at 50% 102%, rgba(255, 190, 110, .75), rgba(255, 140, 110, .25) 45%, transparent 70%),
+      linear-gradient(180deg, #05081f 0%, #0e1546 22%, #2a2470 42%, #5c3480 58%, #a24a78 72%, #e07a62 85%, #ffb56c 95%, #ffd58a 100%);
   }
 
-  /* The card */
+  .stars { position: absolute; inset: 0; }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px 1px rgba(255, 255, 255, .55);
+    animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: .2; }
+    to   { opacity: var(--peak, 1); }
+  }
+
+  .comet {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    width: min(84vw, 860px);
+    height: auto;
+    transform-origin: 85% 50%;
+    filter: drop-shadow(0 0 16px rgba(160, 220, 255, .55));
+    animation: drift 46s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes drift {
+    from { transform: rotate(20deg) translate(0, 0); }
+    to   { transform: rotate(20deg) translate(-4%, 3%); }
+  }
+  .comet .head {
+    animation: pulse 3.6s ease-in-out infinite alternate;
+  }
+  @keyframes pulse {
+    from { opacity: .75; }
+    to   { opacity: 1; }
+  }
+
+  .meteor {
+    position: absolute;
+    width: 2px;
+    height: 110px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .95));
+    opacity: 0;
+    animation: shoot var(--dur) linear infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes shoot {
+    0%   { transform: translate(0, 0) rotate(35deg); opacity: 0; }
+    1%   { opacity: 1; }
+    9%   { transform: translate(-260px, 380px) rotate(35deg); opacity: 0; }
+    100% { transform: translate(-260px, 380px) rotate(35deg); opacity: 0; }
+  }
+
+  .hills {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 22vh;
+    display: block;
+  }
+
+  /* ---- The card ------------------------------------------------------------ */
   .card {
     position: relative;
     z-index: 1;
     width: min(640px, 100%);
     background: var(--card);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, .85);
+    backdrop-filter: blur(18px) saturate(1.3);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    border: 1px solid var(--card-border);
     border-radius: 28px;
     padding: clamp(28px, 6vw, 52px);
-    box-shadow: 0 20px 60px rgba(120, 70, 90, .15);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .12);
     text-align: center;
     animation: pop .9s cubic-bezier(.2, .9, .3, 1.2) both;
   }
@@ -102,17 +148,19 @@
   h1 {
     font-family: var(--font-hand);
     font-weight: 700;
-    font-size: clamp(2.7rem, 9vw, 4.8rem);
+    font-size: clamp(2.5rem, 8.5vw, 4.8rem);
     line-height: 1.05;
     margin: 0 0 6px;
-    color: var(--rose);
+    color: var(--ink);
+    text-shadow: 0 2px 20px rgba(0, 0, 0, .35);
   }
   h1 .name {
     display: inline-block;
-    background: linear-gradient(90deg, #ff6f9c, #ff9f5a);
+    background: linear-gradient(90deg, var(--gold), var(--pink) 55%, var(--cyan));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    text-shadow: none;
   }
   .sub {
     font-family: var(--font-hand);
@@ -123,24 +171,46 @@
   .msg {
     font-size: 1.06rem;
     line-height: 1.7;
-    margin: 0 auto 26px;
+    margin: 0 auto;
     max-width: 46ch;
   }
   .msg p { margin: 0 0 12px; }
   .msg p:last-child { margin-bottom: 0; }
+
+  /* The red thread (musubi) */
+  .thread {
+    position: relative;
+    width: 140px;
+    height: 2px;
+    border: 0;
+    margin: 24px auto;
+    background: linear-gradient(90deg, transparent, var(--thread) 30%, var(--thread) 70%, transparent);
+  }
+  .thread::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    border-radius: 50%;
+    background: var(--thread);
+    box-shadow: 0 0 10px var(--thread);
+  }
 
   .kit {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    margin: 0 0 28px;
+    margin: 0 0 30px;
     padding: 0;
     list-style: none;
   }
   .kit li {
-    background: rgba(255, 255, 255, .75);
-    border: 1px solid rgba(214, 57, 111, .12);
+    background: var(--chip);
+    border: 1px solid var(--chip-border);
     border-radius: 999px;
     padding: 8px 14px;
     font-size: .9rem;
@@ -148,13 +218,13 @@
   }
 
   /* Things to look forward to */
-  .plans { margin: 0 0 30px; }
+  .plans { margin: 0 0 6px; }
   .plans h2 {
     font-family: var(--font-hand);
     font-weight: 700;
     font-size: clamp(1.7rem, 5.5vw, 2.2rem);
     line-height: 1.15;
-    color: var(--rose);
+    color: var(--gold);
     margin: 0 0 14px;
   }
   .places {
@@ -170,8 +240,8 @@
     gap: 12px;
     padding: 10px 14px;
     margin-bottom: 8px;
-    background: rgba(255, 255, 255, .7);
-    border: 1px solid rgba(214, 57, 111, .12);
+    background: var(--chip);
+    border: 1px solid var(--chip-border);
     border-radius: 16px;
   }
   .places .pin { flex: none; font-size: 1.5rem; line-height: 1; }
@@ -184,37 +254,6 @@
     color: var(--muted);
   }
 
-  .btn {
-    font: inherit;
-    font-weight: 700;
-    font-size: 1.05rem;
-    color: #fff;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border: 0;
-    border-radius: 999px;
-    padding: 14px 28px;
-    cursor: pointer;
-    box-shadow: 0 10px 24px rgba(255, 122, 162, .35);
-    transition: transform .15s ease, box-shadow .15s ease;
-  }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(255, 122, 162, .45); }
-  .btn:active { transform: scale(.97); }
-  .btn:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
-
-  .note {
-    min-height: 2.4em;
-    margin: 18px 0 0;
-    font-family: var(--font-hand);
-    font-size: 1.55rem;
-    line-height: 1.3;
-    color: var(--rose);
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity .4s ease, transform .4s ease;
-  }
-  .note.show { opacity: 1; transform: none; }
-  .hugs { font-size: .85rem; color: var(--muted); margin: 6px 0 0; min-height: 1.2em; }
-
   .sig {
     margin: 26px 0 0;
     font-family: var(--font-hand);
@@ -222,153 +261,113 @@
     color: var(--ink);
   }
 
-  /* Heart burst on click */
-  .burst {
-    position: fixed;
-    z-index: 2;
-    pointer-events: none;
-    font-size: 22px;
-    animation: burst 1.1s ease-out forwards;
-  }
-  @keyframes burst {
-    to { transform: translate(var(--dx), var(--dy)) scale(.4); opacity: 0; }
+  /* On phones, leave a strip of sky above the card so the comet is the first thing you see */
+  @media (max-width: 600px) {
+    body { padding-top: 22vh; }
+    .comet { top: 3%; right: -6%; width: 120vw; }
+    .hills { height: 16vh; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    body, .card { animation: none !important; }
-    .float, .burst { display: none; }
-    .note { transition: none; }
+    .card, .comet, .star, .comet .head { animation: none !important; }
+    .comet { transform: rotate(20deg); }
+    .meteor { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="sky" id="sky" aria-hidden="true"></div>
+<div class="sky" aria-hidden="true">
+  <div class="stars" id="stars"></div>
+
+  <svg class="comet" viewBox="0 0 640 200">
+    <defs>
+      <linearGradient id="tail" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#7fc8ff" stop-opacity="0"/>
+        <stop offset=".55" stop-color="#b9e4ff" stop-opacity=".5"/>
+        <stop offset="1" stop-color="#ffffff" stop-opacity=".95"/>
+      </linearGradient>
+      <radialGradient id="glow">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset=".3" stop-color="#dff4ff" stop-opacity=".85"/>
+        <stop offset="1" stop-color="#7fc8ff" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- main tail -->
+    <path fill="url(#tail)" d="M0 104 C 200 78, 400 84, 580 96 L 580 112 C 400 118, 200 122, 0 116 Z"/>
+    <!-- the split fragment -->
+    <path fill="url(#tail)" opacity=".55" d="M60 138 C 250 100, 420 96, 580 102 L 580 108 C 420 110, 250 116, 60 146 Z"/>
+    <!-- head -->
+    <circle class="head" cx="580" cy="104" r="46" fill="url(#glow)"/>
+    <circle cx="580" cy="104" r="7" fill="#fff"/>
+  </svg>
+
+  <span class="meteor" style="left: 70%; top: -8%; --dur: 14s; --delay: 3s"></span>
+  <span class="meteor" style="left: 92%; top: 6%; --dur: 19s; --delay: 9s"></span>
+  <span class="meteor" style="left: 55%; top: -4%; --dur: 23s; --delay: 16s"></span>
+
+  <svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none">
+    <path fill="#1a1440" opacity=".85" d="M0 140 C 180 90, 300 130, 460 100 S 760 60, 920 110 S 1240 150, 1440 90 L 1440 220 L 0 220 Z"/>
+    <path fill="#090c22" d="M0 170 C 200 150, 380 190, 560 160 S 900 120, 1100 170 S 1320 200, 1440 160 L 1440 220 L 0 220 Z"/>
+  </svg>
+</div>
 
 <main class="card">
-  <p class="eyebrow">A little note for you</p>
-  <h1>Get well soon,<br><span class="name">Pingling</span> 💛</h1>
-  <p class="sub">The world is a little dimmer without your smile.</p>
+  <p class="eyebrow">Eine kleine Nachricht</p>
+  <h1>Gute Besserung,<br><span class="name">Pingling</span> 💛</h1>
+  <p class="sub">Ohne dein Lächeln ist die Welt ein bisschen dunkler.</p>
 
   <div class="msg">
-    <p>I know being sick is the worst — so this is your official permission to do absolutely nothing but rest, sleep, and let me take care of everything else.</p>
-    <p>Every cup of tea and every nap brings you one step closer to feeling like yourself again. Take all the time you need. I'm right here.</p>
+    <p>Ich weiß, krank sein ist das Allerschlimmste – deshalb hast du hiermit die offizielle Erlaubnis, gar nichts zu tun außer auszuruhen, zu schlafen und mich um den Rest kümmern zu lassen.</p>
+    <p>Jede Tasse Tee und jedes Nickerchen bringt dich ein Stück näher dahin, wieder ganz du selbst zu sein. Nimm dir alle Zeit, die du brauchst. Ich bin da.</p>
   </div>
 
-  <ul class="kit" aria-label="Get-well kit">
-    <li>🍵 Warm tea</li>
-    <li>🛌 Lots of rest</li>
-    <li>🧸 Cuddles</li>
-    <li>🍲 Soup on demand</li>
-    <li>❤️ Endless love</li>
+  <hr class="thread" aria-hidden="true">
+
+  <ul class="kit" aria-label="Gute-Besserung-Paket">
+    <li>🍵 Warmer Tee</li>
+    <li>🛌 Ganz viel Ruhe</li>
+    <li>🧸 Kuscheln</li>
+    <li>🍲 Suppe auf Bestellung</li>
+    <li>❤️ Unendlich viel Liebe</li>
   </ul>
 
   <section class="plans" aria-labelledby="plans-title">
-    <h2 id="plans-title">When you're back, we're going to…</h2>
+    <h2 id="plans-title">Sobald du wieder fit bist, geht's los …</h2>
     <ul class="places">
-      <li><span class="pin">🇮🇹</span><span><b>Italy</b><small>pasta, sun and gelato</small></span></li>
-      <li><span class="pin">🏰</span><span><b>Nördlingen</b><small>the real-life Attack on Titan town</small></span></li>
-      <li><span class="pin">🧊</span><span><b>The Ice Museum</b><small>bring the thickest jacket you own</small></span></li>
-      <li><span class="pin">🌶️</span><span><b>Chongqing</b><small>hotpot and a city built on hills</small></span></li>
-      <li><span class="pin">🗼</span><span><b>Tokyo</b><small>neon lights and endless ramen</small></span></li>
+      <li><span class="pin">🇮🇹</span><span><b>Italien</b><small>Pasta, Sonne und Gelato</small></span></li>
+      <li><span class="pin">🏰</span><span><b>Nördlingen</b><small>die echte Attack-on-Titan-Stadt</small></span></li>
+      <li><span class="pin">🧊</span><span><b>Das Eismuseum</b><small>die dickste Jacke einpacken</small></span></li>
+      <li><span class="pin">🌶️</span><span><b>Chongqing</b><small>Hotpot und eine Stadt voller Treppen</small></span></li>
+      <li><span class="pin">🗼</span><span><b>Tokio</b><small>Neonlichter und endlos Ramen</small></span></li>
     </ul>
-    <p class="plans-note">But first: rest. The world isn't going anywhere. 🌍</p>
+    <p class="plans-note">Aber zuerst: ausruhen. Die Welt läuft uns nicht weg. 🌍</p>
   </section>
 
-  <button class="btn" id="hug" type="button">Send me a hug 🤗</button>
-  <p class="note" id="note" aria-live="polite"></p>
-  <p class="hugs" id="hugs"></p>
-
-  <p class="sig">With all my love ❤️</p>
+  <p class="sig">Mit all meiner Liebe ❤️</p>
 </main>
 
 <script>
-  // --- Floating hearts & petals -------------------------------------------
+  // --- Starfield ------------------------------------------------------------
   (function () {
-    var sky = document.getElementById('sky');
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) return;
-
-    var items = ['💛', '🌸', '✨', '💕', '🌷', '🩷', '🌼'];
-    var count = window.innerWidth < 600 ? 14 : 22;
+    var host = document.getElementById('stars');
+    var count = window.innerWidth < 600 ? 70 : 150;
+    var frag = document.createDocumentFragment();
     for (var i = 0; i < count; i++) {
-      var el = document.createElement('span');
-      el.className = 'float';
-      el.textContent = items[Math.floor(Math.random() * items.length)];
-      el.style.left = Math.random() * 100 + 'vw';
-      el.style.fontSize = (14 + Math.random() * 20) + 'px';
-      el.style.setProperty('--sway', (Math.random() * 120 - 60) + 'px');
-      el.style.setProperty('--spin', (Math.random() * 240 - 120) + 'deg');
-      el.style.animationDuration = (12 + Math.random() * 14) + 's';
-      el.style.animationDelay = (-Math.random() * 26) + 's';
-      sky.appendChild(el);
+      var s = document.createElement('span');
+      s.className = 'star';
+      // mostly tiny stars, a few brighter ones
+      var size = Math.random() < .85 ? 1 + Math.random() * 1.4 : 2.4 + Math.random() * 1.2;
+      s.style.width = s.style.height = size.toFixed(1) + 'px';
+      s.style.left = (Math.random() * 100).toFixed(2) + '%';
+      // denser towards the top of the sky, none in the bright horizon band
+      s.style.top = (Math.pow(Math.random(), 1.6) * 72).toFixed(2) + '%';
+      s.style.setProperty('--dur', (2.5 + Math.random() * 4).toFixed(1) + 's');
+      s.style.setProperty('--peak', (.5 + Math.random() * .5).toFixed(2));
+      s.style.animationDelay = (-Math.random() * 6).toFixed(1) + 's';
+      frag.appendChild(s);
     }
-  })();
-
-  // --- The hug button --------------------------------------------------------
-  (function () {
-    var notes = [
-      'Consider yourself hugged. Tightly. 🤗',
-      'Rest is productive when you’re the one resting. 😴',
-      'You’re tougher than any cold. 💪',
-      'Soup, blanket, me — the full treatment. 🍲',
-      'Feel better soon, I miss your laugh. 💛',
-      'Doctor’s orders: nap, snack, repeat. 🩺',
-      'Sending healing vibes at maximum strength. ✨',
-      'Get well soon so we can go on adventures again. 🌸',
-      'You take care of you. I’ll take care of everything else. 🫶',
-      'One more nap and you’ll be unstoppable. 🌙'
-    ];
-    var btn = document.getElementById('hug');
-    var note = document.getElementById('note');
-    var hugsEl = document.getElementById('hugs');
-    var key = 'pingling-hugs';
-    var hugs = 0;
-    var last = -1;
-
-    try { hugs = parseInt(localStorage.getItem(key), 10) || 0; } catch (e) {}
-    renderHugs();
-
-    function renderHugs() {
-      if (hugs === 0) { hugsEl.textContent = ''; return; }
-      hugsEl.textContent = hugs === 1 ? '1 hug collected' : hugs + ' hugs collected';
-    }
-
-    function burst(x, y) {
-      var hearts = ['💛', '🩷', '💕', '✨', '🌸'];
-      for (var i = 0; i < 16; i++) {
-        var s = document.createElement('span');
-        s.className = 'burst';
-        s.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-        var angle = Math.random() * Math.PI * 2;
-        var dist = 70 + Math.random() * 110;
-        s.style.left = x + 'px';
-        s.style.top = y + 'px';
-        s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
-        s.style.setProperty('--dy', Math.sin(angle) * dist - 40 + 'px');
-        document.body.appendChild(s);
-        setTimeout(function (el) { el.remove(); }, 1200, s);
-      }
-    }
-
-    btn.addEventListener('click', function () {
-      var idx;
-      do { idx = Math.floor(Math.random() * notes.length); } while (idx === last && notes.length > 1);
-      last = idx;
-
-      note.classList.remove('show');
-      setTimeout(function () {
-        note.textContent = notes[idx];
-        note.classList.add('show');
-      }, 120);
-
-      hugs += 1;
-      renderHugs();
-      try { localStorage.setItem(key, String(hugs)); } catch (e) {}
-
-      var r = btn.getBoundingClientRect();
-      burst(r.left + r.width / 2, r.top + r.height / 2);
-    });
+    host.appendChild(frag);
   })();
 </script>
 </body>
