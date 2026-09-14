@@ -8,8 +8,8 @@ A small get-well card for Pingling, hosted on GitHub Pages. The text is in Germa
 
 - Background: `images/bg.jpg` (a *Your Name* fan illustration by clare) if present; otherwise a CSS-drawn *kataware-doki* twilight sky with stars, comet, shooting stars and an Itomori-style landscape
 - The Milk Mocha bear GIF at the top of the card, then a dark frosted-glass card with a personal long-distance message and red thread (musubi) dividers
-- "Ein paar unserer Momente" — a gallery of our own photos and a short clip (tap one to see it full size; the clip plays in the lightbox with sound)
-- "Sobald du wieder fit bist, geht's los …" — photo tiles for the trips to look forward to. Place photos are hotlinked from Wikimedia Commons (see credits below); the Olympiapark and Baldur's Gate 3 tiles use our own pictures
+- "Ein paar Hugndubl Momente" — a gallery of our own photos and a short clip (tap one to see it full size; the clip plays in the lightbox with sound)
+- "Sobald du wieder fit bist:" — photo tiles for the trips to look forward to. Place photos are hotlinked from Wikimedia Commons (see credits below); the Olympiapark and Baldur's Gate 3 tiles use our own pictures
 - Mobile-friendly; on phones a strip of sky is left above the card. Animations are disabled for users who prefer reduced motion
 
 ## Pictures
