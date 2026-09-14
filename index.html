@@ -147,6 +147,43 @@
     font-weight: 600;
   }
 
+  /* Things to look forward to */
+  .plans { margin: 0 0 30px; }
+  .plans h2 {
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: clamp(1.7rem, 5.5vw, 2.2rem);
+    line-height: 1.15;
+    color: var(--rose);
+    margin: 0 0 14px;
+  }
+  .places {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 400px;
+    text-align: left;
+  }
+  .places li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, .7);
+    border: 1px solid rgba(214, 57, 111, .12);
+    border-radius: 16px;
+  }
+  .places .pin { flex: none; font-size: 1.5rem; line-height: 1; }
+  .places b { display: block; font-weight: 700; }
+  .places small { display: block; color: var(--muted); font-size: .82rem; line-height: 1.35; }
+  .plans-note {
+    margin: 14px 0 0;
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    color: var(--muted);
+  }
+
   .btn {
     font: inherit;
     font-weight: 700;
@@ -225,6 +262,18 @@
     <li>🍲 Soup on demand</li>
     <li>❤️ Endless love</li>
   </ul>
+
+  <section class="plans" aria-labelledby="plans-title">
+    <h2 id="plans-title">When you're back, we're going to…</h2>
+    <ul class="places">
+      <li><span class="pin">🇮🇹</span><span><b>Italy</b><small>pasta, sun and gelato</small></span></li>
+      <li><span class="pin">🏰</span><span><b>Nördlingen</b><small>the real-life Attack on Titan town</small></span></li>
+      <li><span class="pin">🧊</span><span><b>The Ice Museum</b><small>bring the thickest jacket you own</small></span></li>
+      <li><span class="pin">🌶️</span><span><b>Chongqing</b><small>hotpot and a city built on hills</small></span></li>
+      <li><span class="pin">🗼</span><span><b>Tokyo</b><small>neon lights and endless ramen</small></span></li>
+    </ul>
+    <p class="plans-note">But first: rest. The world isn't going anywhere. 🌍</p>
+  </section>
 
   <button class="btn" id="hug" type="button">Send me a hug 🤗</button>
   <p class="note" id="note" aria-live="polite"></p>

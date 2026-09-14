@@ -8,6 +8,7 @@ A small get-well card for Pingling, hosted on GitHub Pages.
 
 - A warm, animated card with a personal message
 - Floating hearts and petals in the background
+- A "When you're back, we're going to…" list of trips to look forward to
 - A "Send me a hug" button that bursts hearts and shows a random sweet note (hug count is remembered in the browser)
 - Mobile-friendly; animations are disabled for users who prefer reduced motion
 
@@ -16,6 +17,7 @@ A small get-well card for Pingling, hosted on GitHub Pages.
 Everything lives in a single file, `index.html`:
 
 - The heading, message and signature are in the `<main class="card">` block.
+- The travel list is the `<ul class="places">` inside `<section class="plans">` — one `<li>` per place (emoji, name, one-line note).
 - The random notes shown by the hug button are in the `notes` array inside the `<script>` block.
 - Colours are CSS variables at the top of the `<style>` block.
 
