@@ -204,6 +204,10 @@
   }
   h1 .name {
     display: inline-block;
+    /* padding + negative margin: the gradient is only painted inside the box, so give the
+       descender of the g room without changing the layout */
+    padding: .08em .14em .26em;
+    margin: -.08em -.14em -.26em;
     background: linear-gradient(90deg, var(--gold), var(--pink) 55%, var(--cyan));
     -webkit-background-clip: text;
     background-clip: text;
