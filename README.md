@@ -8,15 +8,30 @@ A small get-well card for Pingling, hosted on GitHub Pages. The text is in Germa
 
 - A *Your Name* (Kimi no Na wa) inspired twilight sky: layered indigo-to-orange gradient with horizon glow and light rays, a milky-way haze, soft clouds, twinkling stars, the comet with its split fragment, lens flare and glittering tail, occasional shooting stars, and an Itomori-style landscape (mountain ridges, a lake reflecting the sunset, town lights along the shore)
 - A dark frosted-glass card with a personal long-distance message, a red thread (musubi) divider and a get-well kit
-- A "Sobald du wieder fit bist, geht's los …" list of trips to look forward to
+- A row of stickers (Pudgy Penguins, A Day of Us, Tenko, Dudu & Bubu) under the heading — the image files are not in the repo, see below
+- A "Sobald du wieder fit bist, geht's los …" grid of photo tiles for the trips to look forward to. The place photos are hotlinked from Wikimedia Commons (CC BY / CC BY-SA, credited at the bottom of the card); the Baldur's Gate 3 tile shows a dice on a gradient unless you add your own screenshot
 - Mobile-friendly; on phones a strip of sky is left above the card so the comet is the first thing you see. Animations are disabled for users who prefer reduced motion
+
+## Adding the pictures
+
+Drop the files into `images/` with these names (PNG with transparent background works best for the stickers, but any image works):
+
+| File                  | Shown as                          |
+|-----------------------|-----------------------------------|
+| `images/pudgy.png`    | Pudgy Penguin sticker             |
+| `images/adayofus.png` | A Day of Us sticker               |
+| `images/tenko.png`    | Tenko sticker                     |
+| `images/dudububu.png` | Dudu & Bubu sticker               |
+| `images/bg3.jpg`      | Photo for the Baldur's Gate 3 tile |
+
+Missing files are simply skipped (the sticker row hides itself if none exist), so the page never shows a broken image. Commit and push the files and GitHub Pages picks them up.
 
 ## Editing
 
 Everything lives in a single file, `index.html`:
 
 - The heading, message, kit and signature are in the `<main class="card">` block.
-- The travel list is the `<ul class="places">` inside `<section class="plans">` — one `<li>` per place (emoji, name, one-line note).
+- The travel tiles are the `<ul class="places">` inside `<section class="plans">` — one `<li>` per place with an emoji (used as fallback art), an `<img>` and the caption. To swap a photo, replace the `src` (Wikimedia Commons thumbnails must use one of their supported widths, e.g. `960px-`) and update the credits line in `<p class="credits">`.
 - Colours are CSS variables at the top of the `<style>` block; the sky gradient is on `.sky`.
 - The comet is an inline `<svg class="comet">`; its position and angle are set in the `.comet` rule (and the phone override in the `max-width: 600px` media query).
 - The landscape is the inline `<svg class="land">` at the bottom of the sky block (ridges, lake, town lights).

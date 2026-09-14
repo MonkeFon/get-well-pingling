@@ -11,6 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://upload.wikimedia.org">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -205,6 +206,36 @@
     color: var(--muted);
     margin: 0 0 22px;
   }
+  /* Stickers, stuck on slightly crooked */
+  .stickers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px 14px;
+    margin: 0 0 24px;
+  }
+  .stickers:not(:has(img)) { display: none; }
+  .stickers img {
+    width: clamp(58px, 16vw, 96px);
+    height: clamp(58px, 16vw, 96px);
+    object-fit: contain;
+    border-radius: 12px;
+    transform: rotate(var(--tilt, 0deg));
+    filter:
+      drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff)
+      drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)
+      drop-shadow(0 8px 12px rgba(0, 0, 0, .35));
+    animation: bob 3.2s ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+    transition: transform .25s cubic-bezier(.2, .9, .3, 1.4);
+  }
+  .stickers img:hover { transform: rotate(0deg) scale(1.15); }
+  @keyframes bob {
+    from { translate: 0 0; }
+    to   { translate: 0 -6px; }
+  }
+
   .msg {
     font-size: 1.06rem;
     line-height: 1.7;
@@ -266,24 +297,51 @@
   }
   .places {
     list-style: none;
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
-    max-width: 400px;
-    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 132px;
+    gap: 10px;
   }
   .places li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    margin-bottom: 8px;
-    background: var(--chip);
-    border: 1px solid var(--chip-border);
+    position: relative;
     border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .05));
+    border: 1px solid var(--chip-border);
+    text-align: left;
   }
-  .places .pin { flex: none; font-size: 1.5rem; line-height: 1; }
-  .places b { display: block; font-weight: 700; }
-  .places small { display: block; color: var(--muted); font-size: .82rem; line-height: 1.35; }
+  .places li:first-child, .places li:last-child { grid-column: span 2; }
+  .places img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .places li:hover img { transform: scale(1.06); }
+  /* the emoji shows as the tile's art whenever there is no photo */
+  .places .pin {
+    position: absolute;
+    inset: 0 0 34px;
+    display: grid;
+    place-items: center;
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .5));
+  }
+  .places .cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 30px 12px 10px;
+    background: linear-gradient(180deg, transparent, rgba(5, 8, 30, .9));
+  }
+  .places b { display: block; font-weight: 700; font-size: .98rem; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+  .places small { display: block; color: #ddd7ee; font-size: .78rem; line-height: 1.3; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); }
+  .places li.game { background: linear-gradient(160deg, #6a2f8c, #2a1146 55%, #8a2144); }
   .plans-note {
     margin: 14px 0 0;
     font-family: var(--font-hand);
@@ -298,6 +356,14 @@
     line-height: 1.25;
     color: var(--ink);
   }
+  .credits {
+    margin: 26px 0 0;
+    font-size: .66rem;
+    line-height: 1.6;
+    color: var(--muted);
+    opacity: .75;
+  }
+  .credits a { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
 
   /* On phones, leave a strip of sky above the card so the comet is the first thing you see */
   @media (max-width: 600px) {
@@ -306,10 +372,17 @@
     .land { height: 30vh; }
     .cloud.c1 { top: 60%; width: 90vw; }
     .cloud.c2 { top: 66%; width: 100vw; }
+    .stickers { gap: 8px; }
+    .places { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 142px; gap: 8px; }
+    .places li:last-child { grid-column: auto; }
+    .places .pin { font-size: 2.5rem; inset: 0 0 46px; }
+    .places .cap { padding: 22px 10px 8px; }
+    .places b { font-size: .88rem; }
+    .places small { font-size: .7rem; line-height: 1.25; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .card, .comet, .star, .comet .head, .comet .spark, .land .light { animation: none !important; }
+    .card, .comet, .star, .comet .head, .comet .spark, .land .light, .stickers img { animation: none !important; }
     .comet { transform: rotate(20deg); }
     .meteor { display: none; }
   }
@@ -450,6 +523,13 @@
   <h1>Gute Besserung,<br><span class="name">Pingling</span> 💛</h1>
   <p class="sub">Ohne dein Lächeln ist die Welt ein bisschen dunkler.</p>
 
+  <div class="stickers">
+    <img src="images/pudgy.png" alt="Pudgy Penguin" style="--tilt: -8deg; --delay: 0s" onerror="this.remove()">
+    <img src="images/adayofus.png" alt="A Day of Us" style="--tilt: 5deg; --delay: -.8s" onerror="this.remove()">
+    <img src="images/tenko.png" alt="Tenko" style="--tilt: -4deg; --delay: -1.6s" onerror="this.remove()">
+    <img src="images/dudububu.png" alt="Dudu und Bubu" style="--tilt: 7deg; --delay: -2.4s" onerror="this.remove()">
+  </div>
+
   <div class="msg">
     <p>Ich weiß, krank sein ist das Allerschlimmste – deshalb hast du hiermit die offizielle Erlaubnis, gar nichts zu tun außer auszuruhen und zu schlafen. Alles andere kann warten.</p>
     <p>Jede Tasse Tee und jedes Nickerchen bringt dich ein Stück näher dahin, wieder ganz du selbst zu sein. Nimm dir alle Zeit, die du brauchst.</p>
@@ -469,18 +549,55 @@
   <section class="plans" aria-labelledby="plans-title">
     <h2 id="plans-title">Sobald du wieder fit bist, geht's los …</h2>
     <ul class="places">
-      <li><span class="pin">🇮🇹</span><span><b>Italien</b><small>Pasta, Sonne und Gelato</small></span></li>
-      <li><span class="pin">🏰</span><span><b>Nördlingen</b><small>die echte Attack-on-Titan-Stadt</small></span></li>
-      <li><span class="pin">🧊</span><span><b>Das Eismuseum</b><small>die dickste Jacke einpacken</small></span></li>
-      <li><span class="pin">🌶️</span><span><b>Chongqing</b><small>Hotpot und eine Stadt voller Treppen</small></span></li>
-      <li><span class="pin">🗼</span><span><b>Tokio</b><small>Neonlichter und endlos Ramen</small></span></li>
-      <li><span class="pin">🏟️</span><span><b>Olympiapark</b><small>Sonnenuntergang vom Olympiaberg</small></span></li>
-      <li><span class="pin">🎲</span><span><b>Baldur's Gate 3</b><small>zu zweit durch Faerûn</small></span></li>
+      <li>
+        <span class="pin">🇮🇹</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Manarola_NW_Cinque_Terre_Sep23_A7C_07237.jpg/960px-Manarola_NW_Cinque_Terre_Sep23_A7C_07237.jpg" alt="Manarola, Cinque Terre" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Italien</b><small>Pasta, Sonne und Gelato</small></span>
+      </li>
+      <li>
+        <span class="pin">🏰</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/N%C3%B6rdlingen_009.jpg/960px-N%C3%B6rdlingen_009.jpg" alt="Nördlingen von oben" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Nördlingen</b><small>die echte Attack-on-Titan-Stadt</small></span>
+      </li>
+      <li>
+        <span class="pin">🧊</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/ICEHOTEL_Main_Hall_%282014%29_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg/960px-ICEHOTEL_Main_Hall_%282014%29_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg" alt="Halle aus Eis" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Das Eismuseum</b><small>die dickste Jacke einpacken</small></span>
+      </li>
+      <li>
+        <span class="pin">🌶️</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg/960px-202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg" alt="Hongya Cave bei Nacht, Chongqing" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Chongqing</b><small>Hotpot und eine Stadt voller Treppen</small></span>
+      </li>
+      <li>
+        <span class="pin">🗼</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Tokyo_Tower%2C_Minato_City.jpg/960px-Tokyo_Tower%2C_Minato_City.jpg" alt="Tokyo Tower bei Nacht" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Tokio</b><small>Neonlichter und endlos Ramen</small></span>
+      </li>
+      <li>
+        <span class="pin">🏟️</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Olympiastadion_at_dusk.JPG/960px-Olympiastadion_at_dusk.JPG" alt="Olympiapark in der Abenddämmerung" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Olympiapark</b><small>Sonnenuntergang vom Olympiaberg</small></span>
+      </li>
+      <li class="game">
+        <span class="pin">🎲</span>
+        <img src="images/bg3.jpg" alt="Baldur's Gate 3" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Baldur's Gate 3</b><small>zu zweit durch Faerûn</small></span>
+      </li>
     </ul>
     <p class="plans-note">Aber zuerst: ausruhen. Die Welt läuft uns nicht weg. 🌍</p>
   </section>
 
   <p class="sig">Mit all meiner Liebe ❤️</p>
+
+  <p class="credits">Fotos via Wikimedia Commons:
+    <a href="https://commons.wikimedia.org/wiki/File:Manarola_NW_Cinque_Terre_Sep23_A7C_07237.jpg">Manarola</a> (Timothy A. Gonsalves, CC BY-SA 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:N%C3%B6rdlingen_009.jpg">Nördlingen</a> (Wolkenkratzer, CC BY-SA 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:ICEHOTEL_Main_Hall_(2014)_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg">Icehotel</a> (Lars Thulin, CC BY-SA 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg">Hongya Cave</a> (Jonashtand, CC BY-SA 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg">Tokyo Tower</a> (David Kernan, CC BY 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:Olympiastadion_at_dusk.JPG">Olympiapark</a> (Martin Falbisoner, CC BY-SA 3.0)
+  </p>
 </main>
 
 <script>
