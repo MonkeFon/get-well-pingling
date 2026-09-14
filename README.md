@@ -18,7 +18,7 @@ Everything in `images/` is served as-is (no build step):
 
 | File | Used for |
 |------|----------|
-| `bg.jpg` | Page background (optional — the drawn sky is the fallback) |
+| `bg.jpg` | Page background: "Your Name. Hug" by CLare (free for private, personal use; the drawn sky is the fallback if the file is removed) |
 | `bear.gif` | Sticker at the top of the card |
 | `pudgy.png`, `adayofus.png`, `tenko.png`, `dudububu.png` | Further sticker slots (optional; skipped when missing) |
 | `m01-berge.jpg` … `m10-himmel.jpg` | The gallery, in order |

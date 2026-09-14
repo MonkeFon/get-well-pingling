@@ -459,6 +459,11 @@
     .sky .bg { object-position: 56% 50%; }
   }
 
+  /* wide screens with the painted background: card to the left, the couple and the title stay visible */
+  @media (min-width: 1280px) {
+    body:has(.sky .bg) { justify-items: start; padding-left: 6vw; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .card, .comet, .star, .comet .head, .comet .spark, .land .light, .stickers img { animation: none !important; }
     .reveal { opacity: 1; transform: none; transition: none; }
