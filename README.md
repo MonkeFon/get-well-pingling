@@ -8,8 +8,8 @@ A small get-well card for Pingling, hosted on GitHub Pages. The text is in Germa
 
 - Background: `images/bg.jpg` (a *Your Name* fan illustration by clare) if present; otherwise a CSS-drawn *kataware-doki* twilight sky with stars, comet, shooting stars and an Itomori-style landscape
 - The Milk Mocha bear GIF at the top of the card, then a dark frosted-glass card with a personal long-distance message, a red thread (musubi) divider and a get-well kit
-- "Ein paar unserer Momente" — a gallery of our own photos (tap one to see it full size)
-- "Sobald du wieder fit bist, geht's los …" — photo tiles for the trips to look forward to. Place photos are hotlinked from Wikimedia Commons (CC BY / CC BY-SA, credited at the bottom of the card); the Olympiapark and Baldur's Gate 3 tiles use our own pictures
+- "Ein paar unserer Momente" — a gallery of our own photos and a short clip (tap one to see it full size; the clip plays in the lightbox with sound)
+- "Sobald du wieder fit bist, geht's los …" — photo tiles for the trips to look forward to. Place photos are hotlinked from Wikimedia Commons (see credits below); the Olympiapark and Baldur's Gate 3 tiles use our own pictures
 - Mobile-friendly; on phones a strip of sky is left above the card. Animations are disabled for users who prefer reduced motion
 
 ## Pictures
@@ -21,11 +21,24 @@ Everything in `images/` is served as-is (no build step):
 | `bg.jpg` | Page background: "Your Name. Hug" by CLare (free for private, personal use; the drawn sky is the fallback if the file is removed) |
 | `bear.gif` | Sticker at the top of the card |
 | `pudgy.png`, `adayofus.png`, `tenko.png`, `dudububu.png` | Further sticker slots (optional; skipped when missing) |
-| `m01-berge.jpg` … `m10-himmel.jpg` | The gallery, in order |
+| `m01-berge.jpg` … `m10-himmel.jpg`, `n11-horimiya.jpg` … `n19-sanrio.jpg` | The gallery photos |
+| `v01.mp4` | The clip in the gallery (served as-is, loaded only when tapped) |
 | `olympiapark.jpg` | Olympiapark tile |
 | `bg3.jpg` | Baldur's Gate 3 tile |
 
-Photos were resized to 1400 px on the long edge and re-saved without EXIF metadata (no GPS in the repo). To add a gallery photo: resize it, drop it in `images/`, and add an `<li>` to `<ul class="gallery">` (`class="wide"` for landscape shots).
+Photos were resized to 1400 px on the long edge and re-saved without EXIF metadata (no GPS in the repo). To add a gallery photo: resize it, drop it in `images/`, and add an `<li>` to `<ul class="gallery">` (`class="wide"` for landscape shots). The grid has 3 columns on desktop and 2 on phones; a wide tile takes 2 cells, so keep the order such that rows fill up (wide + portrait, or three portraits).
+
+## Photo credits
+
+The place photos in the trip tiles come from Wikimedia Commons:
+
+- Manarola — Timothy A. Gonsalves, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:Manarola_NW_Cinque_Terre_Sep23_A7C_07237.jpg)
+- Nördlingen — Wolkenkratzer, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:N%C3%B6rdlingen_009.jpg)
+- Eispalast Dachstein — Falk2, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:I09_814_Dachstein-Eispalast_2012.jpg)
+- Hongya Cave, Chongqing — Jonashtand, [CC BY-SA 4.0](https://commons.wikimedia.org/wiki/File:202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg)
+- Tokyo Tower — David Kernan, [CC BY 4.0](https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg)
+
+Background: "Your Name. Hug" by CLare (free for private, personal use). Bear GIF: milkmochabear.
 
 ## Editing
 
