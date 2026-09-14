@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Well Soon, Pingling 💛</title>
+<meta name="description" content="A little get-well card for Pingling.">
+<meta property="og:title" content="Get Well Soon, Pingling 💛">
+<meta property="og:description" content="A little note to help you feel better.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg1: #fff1e6;
+    --bg2: #ffe0ec;
+    --bg3: #e8f3ff;
+    --card: rgba(255, 255, 255, 0.72);
+    --ink: #4a3b45;
+    --muted: #8a7580;
+    --rose: #d6396f;
+    --accent: #ff7aa2;
+    --accent2: #ffb86b;
+    --font-body: 'Nunito', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-hand: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg1));
+    background-size: 300% 300%;
+    animation: drift 18s ease-in-out infinite;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+
+  @keyframes drift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Floating hearts & petals in the background */
+  .sky {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .float {
+    position: absolute;
+    bottom: -10vh;
+    opacity: 0;
+    animation: rise linear infinite;
+    will-change: transform, opacity;
+    filter: drop-shadow(0 4px 8px rgba(214, 57, 111, .12));
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: .85; }
+    90%  { opacity: .85; }
+    100% { transform: translateY(-115vh) translateX(var(--sway)) rotate(var(--spin)); opacity: 0; }
+  }
+
+  /* The card */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: min(640px, 100%);
+    background: var(--card);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, .85);
+    border-radius: 28px;
+    padding: clamp(28px, 6vw, 52px);
+    box-shadow: 0 20px 60px rgba(120, 70, 90, .15);
+    text-align: center;
+    animation: pop .9s cubic-bezier(.2, .9, .3, 1.2) both;
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(24px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: var(--font-hand);
+    font-weight: 700;
+    font-size: clamp(2.7rem, 9vw, 4.8rem);
+    line-height: 1.05;
+    margin: 0 0 6px;
+    color: var(--rose);
+  }
+  h1 .name {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6f9c, #ff9f5a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub {
+    font-family: var(--font-hand);
+    font-size: clamp(1.4rem, 4.5vw, 1.9rem);
+    color: var(--muted);
+    margin: 0 0 22px;
+  }
+  .msg {
+    font-size: 1.06rem;
+    line-height: 1.7;
+    margin: 0 auto 26px;
+    max-width: 46ch;
+  }
+  .msg p { margin: 0 0 12px; }
+  .msg p:last-child { margin-bottom: 0; }
+
+  .kit {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 28px;
+    padding: 0;
+    list-style: none;
+  }
+  .kit li {
+    background: rgba(255, 255, 255, .75);
+    border: 1px solid rgba(214, 57, 111, .12);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
+  .btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: 0;
+    border-radius: 999px;
+    padding: 14px 28px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(255, 122, 162, .35);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(255, 122, 162, .45); }
+  .btn:active { transform: scale(.97); }
+  .btn:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+
+  .note {
+    min-height: 2.4em;
+    margin: 18px 0 0;
+    font-family: var(--font-hand);
+    font-size: 1.55rem;
+    line-height: 1.3;
+    color: var(--rose);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .note.show { opacity: 1; transform: none; }
+  .hugs { font-size: .85rem; color: var(--muted); margin: 6px 0 0; min-height: 1.2em; }
+
+  .sig {
+    margin: 26px 0 0;
+    font-family: var(--font-hand);
+    font-size: 1.7rem;
+    color: var(--ink);
+  }
+
+  /* Heart burst on click */
+  .burst {
+    position: fixed;
+    z-index: 2;
+    pointer-events: none;
+    font-size: 22px;
+    animation: burst 1.1s ease-out forwards;
+  }
+  @keyframes burst {
+    to { transform: translate(var(--dx), var(--dy)) scale(.4); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body, .card, .burst { animation: none !important; }
+    .float { display: none; }
+    .note { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<main class="card">
+  <p class="eyebrow">A little note for you</p>
+  <h1>Get well soon,<br><span class="name">Pingling</span> 💛</h1>
+  <p class="sub">The world is a little dimmer without your smile.</p>
+
+  <div class="msg">
+    <p>I know being sick is the worst — so this is your official permission to do absolutely nothing but rest, sleep, and let me take care of everything else.</p>
+    <p>Every cup of tea and every nap brings you one step closer to feeling like yourself again. Take all the time you need. I'm right here.</p>
+  </div>
+
+  <ul class="kit" aria-label="Get-well kit">
+    <li>🍵 Warm tea</li>
+    <li>🛌 Lots of rest</li>
+    <li>🧸 Cuddles</li>
+    <li>🍲 Soup on demand</li>
+    <li>❤️ Endless love</li>
+  </ul>
+
+  <button class="btn" id="hug" type="button">Send me a hug 🤗</button>
+  <p class="note" id="note" aria-live="polite"></p>
+  <p class="hugs" id="hugs"></p>
+
+  <p class="sig">With all my love ❤️</p>
+</main>
+
+<script>
+  // --- Floating hearts & petals -------------------------------------------
+  (function () {
+    var sky = document.getElementById('sky');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    var items = ['💛', '🌸', '✨', '💕', '🌷', '🩷', '🌼'];
+    var count = window.innerWidth < 600 ? 14 : 22;
+    for (var i = 0; i < count; i++) {
+      var el = document.createElement('span');
+      el.className = 'float';
+      el.textContent = items[Math.floor(Math.random() * items.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.fontSize = (14 + Math.random() * 20) + 'px';
+      el.style.setProperty('--sway', (Math.random() * 120 - 60) + 'px');
+      el.style.setProperty('--spin', (Math.random() * 240 - 120) + 'deg');
+      el.style.animationDuration = (12 + Math.random() * 14) + 's';
+      el.style.animationDelay = (-Math.random() * 26) + 's';
+      sky.appendChild(el);
+    }
+  })();
+
+  // --- The hug button --------------------------------------------------------
+  (function () {
+    var notes = [
+      'Consider yourself hugged. Tightly. 🤗',
+      'Rest is productive when you’re the one resting. 😴',
+      'You’re tougher than any cold. 💪',
+      'Soup, blanket, me — the full treatment. 🍲',
+      'Feel better soon, I miss your laugh. 💛',
+      'Doctor’s orders: nap, snack, repeat. 🩺',
+      'Sending healing vibes at maximum strength. ✨',
+      'Get well soon so we can go on adventures again. 🌸',
+      'You take care of you. I’ll take care of everything else. 🫶',
+      'One more nap and you’ll be unstoppable. 🌙'
+    ];
+    var btn = document.getElementById('hug');
+    var note = document.getElementById('note');
+    var hugsEl = document.getElementById('hugs');
+    var key = 'pingling-hugs';
+    var hugs = 0;
+    var last = -1;
+
+    try { hugs = parseInt(localStorage.getItem(key), 10) || 0; } catch (e) {}
+    renderHugs();
+
+    function renderHugs() {
+      if (hugs === 0) { hugsEl.textContent = ''; return; }
+      hugsEl.textContent = hugs === 1 ? '1 hug collected' : hugs + ' hugs collected';
+    }
+
+    function burst(x, y) {
+      var hearts = ['💛', '🩷', '💕', '✨', '🌸'];
+      for (var i = 0; i < 16; i++) {
+        var s = document.createElement('span');
+        s.className = 'burst';
+        s.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        var angle = Math.random() * Math.PI * 2;
+        var dist = 70 + Math.random() * 110;
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+        s.style.setProperty('--dy', Math.sin(angle) * dist - 40 + 'px');
+        document.body.appendChild(s);
+        s.addEventListener('animationend', function () { this.remove(); });
+      }
+    }
+
+    btn.addEventListener('click', function () {
+      var idx;
+      do { idx = Math.floor(Math.random() * notes.length); } while (idx === last && notes.length > 1);
+      last = idx;
+
+      note.classList.remove('show');
+      setTimeout(function () {
+        note.textContent = notes[idx];
+        note.classList.add('show');
+      }, 120);
+
+      hugs += 1;
+      renderHugs();
+      try { localStorage.setItem(key, String(hugs)); } catch (e) {}
+
+      var r = btn.getBoundingClientRect();
+      burst(r.left + r.width / 2, r.top + r.height / 2);
+    });
+  })();
+</script>
+</body>
+</html>
