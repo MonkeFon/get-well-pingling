@@ -7,7 +7,7 @@
 <title>Gute Besserung, Pingling 💛</title>
 <meta name="description" content="Eine kleine Gute-Besserung-Karte für Pingling.">
 <meta property="og:title" content="Gute Besserung, Pingling 💛">
-<meta property="og:description" content="Eine kleine Nachricht, damit es dir schnell wieder besser geht.">
+<meta property="og:description" content="Eine kleine Nachricht aus der Ferne, damit es dir schnell wieder besser geht.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💛</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,11 +51,41 @@
     overflow: hidden;
     pointer-events: none;
     background:
-      radial-gradient(90% 55% at 50% 102%, rgba(255, 190, 110, .75), rgba(255, 140, 110, .25) 45%, transparent 70%),
-      linear-gradient(180deg, #05081f 0%, #0e1546 22%, #2a2470 42%, #5c3480 58%, #a24a78 72%, #e07a62 85%, #ffb56c 95%, #ffd58a 100%);
+      radial-gradient(70% 45% at 50% 100%, rgba(255, 225, 160, .9), rgba(255, 160, 110, .4) 45%, transparent 72%),
+      linear-gradient(180deg,
+        #060a2a 0%, #0d1450 18%, #241d6b 34%, #4a2a7d 48%, #7e3b82 60%,
+        #b64d76 70%, #e0705f 80%, #ff9a5c 88%, #ffc274 94%, #ffe3a0 100%);
+  }
+  .sky > * { position: absolute; }
+
+  /* faint milky-way band across the upper sky */
+  .haze {
+    inset: 0;
+    background: linear-gradient(112deg,
+      transparent 28%, rgba(170, 190, 255, .07) 40%, rgba(255, 255, 255, .13) 48%,
+      rgba(170, 190, 255, .07) 56%, transparent 68%);
   }
 
-  .stars { position: absolute; inset: 0; }
+  /* light rays fanning out from the horizon */
+  .rays {
+    inset: 0;
+    background: repeating-conic-gradient(from 230deg at 50% 100%,
+      rgba(255, 230, 190, 0) 0deg, rgba(255, 230, 190, .075) 3deg, rgba(255, 230, 190, 0) 8deg);
+    -webkit-mask-image: radial-gradient(75% 75% at 50% 100%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(75% 75% at 50% 100%, #000 20%, transparent 75%);
+  }
+
+  /* soft clouds catching the last light */
+  .cloud {
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center,
+      rgba(255, 190, 170, .55), rgba(255, 150, 150, .28) 40%, transparent 70%);
+  }
+  .cloud.c1 { left: -10%; top: 58%; width: 55vw; height: 16vh; }
+  .cloud.c2 { left: 45%; top: 64%; width: 62vw; height: 14vh; }
+  .cloud.c3 { left: 15%; top: 72%; width: 48vw; height: 10vh; opacity: .8; }
+
+  .stars { inset: 0; }
   .star {
     position: absolute;
     border-radius: 50%;
@@ -68,14 +98,14 @@
     to   { opacity: var(--peak, 1); }
   }
 
+  /* the comet */
   .comet {
-    position: absolute;
-    top: 5%;
-    right: 2%;
-    width: min(84vw, 860px);
+    top: 4%;
+    right: 3%;
+    width: min(88vw, 960px);
     height: auto;
     transform-origin: 85% 50%;
-    filter: drop-shadow(0 0 16px rgba(160, 220, 255, .55));
+    filter: drop-shadow(0 0 22px rgba(150, 215, 255, .5));
     animation: drift 46s ease-in-out infinite alternate;
     will-change: transform;
   }
@@ -83,16 +113,21 @@
     from { transform: rotate(20deg) translate(0, 0); }
     to   { transform: rotate(20deg) translate(-4%, 3%); }
   }
-  .comet .head {
-    animation: pulse 3.6s ease-in-out infinite alternate;
-  }
+  .comet .head { animation: pulse 3.6s ease-in-out infinite alternate; }
   @keyframes pulse {
     from { opacity: .75; }
     to   { opacity: 1; }
   }
+  .comet .spark { animation: glint 2.2s ease-in-out infinite alternate; }
+  .comet .spark:nth-child(2n)  { animation-delay: -.7s; }
+  .comet .spark:nth-child(3n)  { animation-delay: -1.3s; animation-duration: 3.1s; }
+  .comet .spark:nth-child(5n)  { animation-delay: -1.9s; animation-duration: 2.7s; }
+  @keyframes glint {
+    from { opacity: .15; }
+    to   { opacity: 1; }
+  }
 
   .meteor {
-    position: absolute;
     width: 2px;
     height: 110px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .95));
@@ -107,15 +142,17 @@
     100% { transform: translate(-260px, 380px) rotate(35deg); opacity: 0; }
   }
 
-  .hills {
-    position: absolute;
+  /* mountains, the lake and the town lights */
+  .land {
     left: 0;
-    right: 0;
     bottom: 0;
     width: 100%;
-    height: 22vh;
+    height: 34vh;
     display: block;
   }
+  .land .light { animation: twinkle 3.4s ease-in-out infinite alternate; }
+  .land .light:nth-child(2n) { animation-delay: -1.1s; }
+  .land .light:nth-child(3n) { animation-delay: -2.3s; }
 
   /* ---- The card ------------------------------------------------------------ */
   .card {
@@ -258,18 +295,21 @@
     margin: 26px 0 0;
     font-family: var(--font-hand);
     font-size: 1.7rem;
+    line-height: 1.25;
     color: var(--ink);
   }
 
   /* On phones, leave a strip of sky above the card so the comet is the first thing you see */
   @media (max-width: 600px) {
-    body { padding-top: 22vh; }
-    .comet { top: 3%; right: -6%; width: 120vw; }
-    .hills { height: 16vh; }
+    body { padding-top: 24vh; }
+    .comet { top: 2%; right: -8%; width: 130vw; }
+    .land { height: 30vh; }
+    .cloud.c1 { top: 60%; width: 90vw; }
+    .cloud.c2 { top: 66%; width: 100vw; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .card, .comet, .star, .comet .head { animation: none !important; }
+    .card, .comet, .star, .comet .head, .comet .spark, .land .light { animation: none !important; }
     .comet { transform: rotate(20deg); }
     .meteor { display: none; }
   }
@@ -278,48 +318,142 @@
 <body>
 
 <div class="sky" aria-hidden="true">
+  <div class="haze"></div>
+  <div class="rays"></div>
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
   <div class="stars" id="stars"></div>
 
-  <svg class="comet" viewBox="0 0 640 200">
+  <svg class="comet" viewBox="0 0 800 260">
     <defs>
-      <linearGradient id="tail" x1="0" y1="0" x2="1" y2="0">
+      <linearGradient id="tailA" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#5fb8ff" stop-opacity="0"/>
+        <stop offset=".45" stop-color="#9bdcff" stop-opacity=".45"/>
+        <stop offset=".85" stop-color="#e8f8ff" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#ffffff"/>
+      </linearGradient>
+      <linearGradient id="tailB" x1="0" y1="0" x2="1" y2="0">
         <stop offset="0" stop-color="#7fc8ff" stop-opacity="0"/>
-        <stop offset=".55" stop-color="#b9e4ff" stop-opacity=".5"/>
-        <stop offset="1" stop-color="#ffffff" stop-opacity=".95"/>
+        <stop offset=".7" stop-color="#bfe8ff" stop-opacity=".35"/>
+        <stop offset="1" stop-color="#ffffff" stop-opacity=".7"/>
       </linearGradient>
       <radialGradient id="glow">
         <stop offset="0" stop-color="#ffffff"/>
-        <stop offset=".3" stop-color="#dff4ff" stop-opacity=".85"/>
-        <stop offset="1" stop-color="#7fc8ff" stop-opacity="0"/>
+        <stop offset=".25" stop-color="#e6f7ff" stop-opacity=".9"/>
+        <stop offset=".6" stop-color="#8fd3ff" stop-opacity=".35"/>
+        <stop offset="1" stop-color="#5fb8ff" stop-opacity="0"/>
       </radialGradient>
+      <filter id="soft" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="softer" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
     </defs>
-    <!-- main tail -->
-    <path fill="url(#tail)" d="M0 104 C 200 78, 400 84, 580 96 L 580 112 C 400 118, 200 122, 0 116 Z"/>
-    <!-- the split fragment -->
-    <path fill="url(#tail)" opacity=".55" d="M60 138 C 250 100, 420 96, 580 102 L 580 108 C 420 110, 250 116, 60 146 Z"/>
-    <!-- head -->
-    <circle class="head" cx="580" cy="104" r="46" fill="url(#glow)"/>
-    <circle cx="580" cy="104" r="7" fill="#fff"/>
+
+    <!-- main tail: wide glow, body, bright core -->
+    <path filter="url(#soft)" fill="url(#tailB)" d="M0 96 C 220 60, 460 70, 700 100 L 700 150 C 460 150, 220 150, 0 130 Z"/>
+    <path filter="url(#softer)" fill="url(#tailA)" d="M40 110 C 260 84, 500 92, 700 116 L 700 132 C 500 138, 260 140, 40 126 Z"/>
+    <path fill="url(#tailA)" d="M180 120 C 400 106, 560 112, 700 122 L 700 126 C 560 128, 400 128, 180 124 Z"/>
+
+    <!-- the fragment that split off, drifting below -->
+    <path filter="url(#softer)" fill="url(#tailB)" opacity=".8" d="M120 176 C 320 140, 520 128, 700 132 L 700 140 C 520 146, 320 160, 120 190 Z"/>
+    <path fill="url(#tailA)" opacity=".8" d="M300 158 C 480 140, 600 136, 700 134 L 700 138 C 600 142, 480 148, 300 162 Z"/>
+
+    <!-- heads with lens flare -->
+    <circle class="head" cx="700" cy="124" r="64" fill="url(#glow)"/>
+    <ellipse cx="700" cy="124" rx="130" ry="3" fill="#fff" opacity=".55" filter="url(#softer)"/>
+    <ellipse cx="700" cy="124" rx="3" ry="64" fill="#fff" opacity=".4" filter="url(#softer)"/>
+    <circle cx="700" cy="124" r="9" fill="#fff"/>
+    <circle class="head" cx="700" cy="136" r="26" fill="url(#glow)" opacity=".8"/>
+    <circle cx="700" cy="136" r="4" fill="#fff"/>
+
+    <!-- glitter along the tails -->
+    <g fill="#fff">
+      <path class="spark" d="M300 108 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 z"/>
+      <path class="spark" d="M380 100 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z"/>
+      <path class="spark" d="M440 132 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2 z"/>
+      <path class="spark" d="M520 96 l1.2 3.6 l3.6 1.2 l-3.6 1.2 l-1.2 3.6 l-1.2 -3.6 l-3.6 -1.2 l3.6 -1.2 z"/>
+      <path class="spark" d="M560 142 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 z"/>
+      <path class="spark" d="M610 112 l2.5 7.5 l7.5 2.5 l-7.5 2.5 l-2.5 7.5 l-2.5 -7.5 l-7.5 -2.5 l7.5 -2.5 z"/>
+      <path class="spark" d="M640 150 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z"/>
+      <path class="spark" d="M470 160 l1.2 3.6 l3.6 1.2 l-3.6 1.2 l-1.2 3.6 l-1.2 -3.6 l-3.6 -1.2 l3.6 -1.2 z"/>
+      <path class="spark" d="M350 150 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z"/>
+      <path class="spark" d="M660 92 l1.5 4.5 l4.5 1.5 l-4.5 1.5 l-1.5 4.5 l-1.5 -4.5 l-4.5 -1.5 l4.5 -1.5 z"/>
+      <path class="spark" d="M240 128 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 z"/>
+      <path class="spark" d="M590 128 l1.2 3.6 l3.6 1.2 l-3.6 1.2 l-1.2 3.6 l-1.2 -3.6 l-3.6 -1.2 l3.6 -1.2 z"/>
+    </g>
   </svg>
 
   <span class="meteor" style="left: 70%; top: -8%; --dur: 14s; --delay: 3s"></span>
   <span class="meteor" style="left: 92%; top: 6%; --dur: 19s; --delay: 9s"></span>
   <span class="meteor" style="left: 55%; top: -4%; --dur: 23s; --delay: 16s"></span>
 
-  <svg class="hills" viewBox="0 0 1440 220" preserveAspectRatio="none">
-    <path fill="#1a1440" opacity=".85" d="M0 140 C 180 90, 300 130, 460 100 S 760 60, 920 110 S 1240 150, 1440 90 L 1440 220 L 0 220 Z"/>
-    <path fill="#090c22" d="M0 170 C 200 150, 380 190, 560 160 S 900 120, 1100 170 S 1320 200, 1440 160 L 1440 220 L 0 220 Z"/>
+  <svg class="land" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="mFar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6a4595"/><stop offset="1" stop-color="#33255f"/>
+      </linearGradient>
+      <linearGradient id="mMid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2f2160"/><stop offset="1" stop-color="#1a1440"/>
+      </linearGradient>
+      <linearGradient id="mNear" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#13102f"/><stop offset="1" stop-color="#07071a"/>
+      </linearGradient>
+      <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffc287" stop-opacity=".9"/>
+        <stop offset=".3" stop-color="#c85f78" stop-opacity=".85"/>
+        <stop offset=".65" stop-color="#4a2a6e" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#120e30"/>
+      </linearGradient>
+      <filter id="lakeGlow" x="-20%" y="-100%" width="140%" height="300%"><feGaussianBlur stdDeviation="12"/></filter>
+    </defs>
+
+    <!-- far ridge, hazy in the last light -->
+    <path fill="url(#mFar)" d="M0 214 L 90 168 L 200 196 L 330 128 L 450 176 L 560 150 L 700 206 L 830 118 L 960 172 L 1090 138 L 1220 194 L 1360 150 L 1480 184 L 1600 160 L 1600 420 L 0 420 Z"/>
+    <!-- mid ridge -->
+    <path fill="url(#mMid)" d="M0 262 L 140 214 L 280 254 L 420 200 L 580 262 L 700 228 L 860 272 L 1000 218 L 1140 262 L 1300 206 L 1440 252 L 1600 226 L 1600 420 L 0 420 Z"/>
+
+    <!-- the lake -->
+    <rect x="0" y="296" width="1600" height="124" fill="url(#lake)"/>
+    <ellipse cx="960" cy="312" rx="360" ry="22" fill="#cfefff" opacity=".28" filter="url(#lakeGlow)"/>
+    <g fill="#fff" opacity=".22">
+      <rect x="640" y="316" width="140" height="1.5"/>
+      <rect x="860" y="326" width="220" height="1.5"/>
+      <rect x="1120" y="320" width="90" height="1.5"/>
+      <rect x="720" y="340" width="180" height="1.2"/>
+      <rect x="980" y="348" width="120" height="1.2"/>
+      <rect x="560" y="356" width="100" height="1"/>
+      <rect x="1180" y="360" width="160" height="1"/>
+    </g>
+
+    <!-- near shores -->
+    <path fill="url(#mNear)" d="M0 326 C 160 300, 300 336, 470 318 C 520 314, 540 330, 560 340 L 560 420 L 0 420 Z"/>
+    <path fill="url(#mNear)" d="M1040 336 C 1120 322, 1260 300, 1400 322 C 1480 334, 1540 310, 1600 306 L 1600 420 L 1040 420 Z"/>
+    <path fill="#07071a" d="M0 380 C 300 366, 600 392, 900 378 C 1200 364, 1400 386, 1600 372 L 1600 420 L 0 420 Z"/>
+
+    <!-- town lights along the water -->
+    <g fill="#ffd98f">
+      <circle class="light" cx="40" cy="322" r="1.6"/><circle class="light" cx="88" cy="318" r="1.2"/>
+      <circle class="light" cx="140" cy="314" r="1.8"/><circle class="light" cx="176" cy="320" r="1.1"/>
+      <circle class="light" cx="230" cy="326" r="1.5"/><circle class="light" cx="270" cy="330" r="1.2"/>
+      <circle class="light" cx="320" cy="332" r="1.7"/><circle class="light" cx="372" cy="328" r="1.2"/>
+      <circle class="light" cx="410" cy="322" r="1.5"/><circle class="light" cx="450" cy="318" r="1.1"/>
+      <circle class="light" cx="1080" cy="334" r="1.3"/><circle class="light" cx="1120" cy="328" r="1.7"/>
+      <circle class="light" cx="1170" cy="320" r="1.2"/><circle class="light" cx="1220" cy="314" r="1.6"/>
+      <circle class="light" cx="1270" cy="310" r="1.1"/><circle class="light" cx="1320" cy="312" r="1.8"/>
+      <circle class="light" cx="1380" cy="318" r="1.3"/><circle class="light" cx="1430" cy="324" r="1.5"/>
+      <circle class="light" cx="1490" cy="316" r="1.2"/><circle class="light" cx="1540" cy="308" r="1.6"/>
+    </g>
   </svg>
 </div>
 
 <main class="card">
-  <p class="eyebrow">Eine kleine Nachricht</p>
+  <p class="eyebrow">Aus der Ferne, für dich</p>
   <h1>Gute Besserung,<br><span class="name">Pingling</span> 💛</h1>
   <p class="sub">Ohne dein Lächeln ist die Welt ein bisschen dunkler.</p>
 
   <div class="msg">
-    <p>Ich weiß, krank sein ist das Allerschlimmste – deshalb hast du hiermit die offizielle Erlaubnis, gar nichts zu tun außer auszuruhen, zu schlafen und mich um den Rest kümmern zu lassen.</p>
-    <p>Jede Tasse Tee und jedes Nickerchen bringt dich ein Stück näher dahin, wieder ganz du selbst zu sein. Nimm dir alle Zeit, die du brauchst. Ich bin da.</p>
+    <p>Ich weiß, krank sein ist das Allerschlimmste – deshalb hast du hiermit die offizielle Erlaubnis, gar nichts zu tun außer auszuruhen und zu schlafen. Alles andere kann warten.</p>
+    <p>Jede Tasse Tee und jedes Nickerchen bringt dich ein Stück näher dahin, wieder ganz du selbst zu sein. Nimm dir alle Zeit, die du brauchst.</p>
+    <p>Auch wenn gerade viele Kilometer zwischen uns liegen: In Gedanken bin ich die ganze Zeit bei dir – wir schauen schließlich in denselben Himmel. 🌠</p>
   </div>
 
   <hr class="thread" aria-hidden="true">
@@ -327,8 +461,8 @@
   <ul class="kit" aria-label="Gute-Besserung-Paket">
     <li>🍵 Warmer Tee</li>
     <li>🛌 Ganz viel Ruhe</li>
-    <li>🧸 Kuscheln</li>
-    <li>🍲 Suppe auf Bestellung</li>
+    <li>📞 Anrufe, wann immer du willst</li>
+    <li>💌 Gute-Nacht-Nachrichten</li>
     <li>❤️ Unendlich viel Liebe</li>
   </ul>
 
@@ -361,7 +495,7 @@
       s.style.width = s.style.height = size.toFixed(1) + 'px';
       s.style.left = (Math.random() * 100).toFixed(2) + '%';
       // denser towards the top of the sky, none in the bright horizon band
-      s.style.top = (Math.pow(Math.random(), 1.6) * 72).toFixed(2) + '%';
+      s.style.top = (Math.pow(Math.random(), 1.6) * 62).toFixed(2) + '%';
       s.style.setProperty('--dur', (2.5 + Math.random() * 4).toFixed(1) + 's');
       s.style.setProperty('--peak', (.5 + Math.random() * .5).toFixed(2));
       s.style.animationDelay = (-Math.random() * 6).toFixed(1) + 's';
