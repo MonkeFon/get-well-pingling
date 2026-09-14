@@ -283,24 +283,6 @@
     box-shadow: 0 0 10px var(--thread);
   }
 
-  .kit {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .kit li {
-    background: var(--chip);
-    border: 1px solid var(--chip-border);
-    border-radius: 999px;
-    padding: 8px 14px;
-    font-size: .9rem;
-    font-weight: 600;
-  }
-
   /* Our moments */
   .memories { margin: 0; }
   .gallery {
@@ -639,16 +621,6 @@
 
   <hr class="thread" aria-hidden="true">
 
-  <ul class="kit" aria-label="Gute-Besserung-Paket">
-    <li>🍵 Warmer Tee</li>
-    <li>🛌 Ganz viel Ruhe</li>
-    <li>📞 Anrufe, wann immer du willst</li>
-    <li>💌 Gute-Nacht-Nachrichten</li>
-    <li>❤️ Unendlich viel Liebe</li>
-  </ul>
-
-  <hr class="thread" aria-hidden="true">
-
   <section class="memories" aria-labelledby="mem-title">
     <h2 id="mem-title">Ein paar unserer Momente</h2>
     <ul class="gallery">
@@ -754,7 +726,7 @@
   // --- Fade sections in as they scroll into view ---------------------------------
   (function () {
     if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var els = document.querySelectorAll('.msg, .kit, .memories, .plans, .sig');
+    var els = document.querySelectorAll('.msg, .memories, .plans, .sig');
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
