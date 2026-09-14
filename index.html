@@ -59,6 +59,16 @@
   }
   .sky > * { position: absolute; }
 
+  /* optional painted background (images/bg.jpg); the drawn sky below is the fallback */
+  .sky .bg {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 50%;
+  }
+  .sky:has(.bg) > :is(.haze, .rays, .cloud, .comet, .land) { display: none; }
+
   /* faint milky-way band across the upper sky */
   .haze {
     inset: 0;
@@ -213,9 +223,10 @@
     justify-content: center;
     align-items: flex-end;
     gap: 10px 14px;
-    margin: 0 0 24px;
+    margin: -6px 0 18px;
   }
   .stickers:not(:has(img)) { display: none; }
+  .stickers img:only-child { width: 128px; height: 128px; }
   .stickers img {
     width: clamp(58px, 16vw, 96px);
     height: clamp(58px, 16vw, 96px);
@@ -285,9 +296,55 @@
     font-weight: 600;
   }
 
+  /* Our moments */
+  .memories { margin: 0 0 34px; }
+  .gallery {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 200px;
+    gap: 10px;
+  }
+  .gallery li {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--chip);
+    border: 1px solid var(--chip-border);
+    cursor: zoom-in;
+  }
+  .gallery li.wide { grid-column: span 2; }
+  .gallery img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--pos, 50% 50%);
+    transition: transform .6s ease;
+  }
+  .gallery li:hover img { transform: scale(1.05); }
+
+  .lightbox {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    max-width: min(96vw, 1200px);
+    max-height: 94vh;
+    cursor: zoom-out;
+  }
+  .lightbox::backdrop { background: rgba(4, 6, 20, .92); }
+  .lightbox img {
+    display: block;
+    max-width: min(96vw, 1200px);
+    max-height: 94vh;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+  }
+
   /* Things to look forward to */
   .plans { margin: 0 0 6px; }
-  .plans h2 {
+  .plans h2, .memories h2 {
     font-family: var(--font-hand);
     font-weight: 700;
     font-size: clamp(1.7rem, 5.5vw, 2.2rem);
@@ -379,6 +436,8 @@
     .places .cap { padding: 22px 10px 8px; }
     .places b { font-size: .88rem; }
     .places small { font-size: .7rem; line-height: 1.25; }
+    .gallery { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 170px; gap: 8px; }
+    .sky .bg { object-position: 56% 50%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -391,6 +450,7 @@
 <body>
 
 <div class="sky" aria-hidden="true">
+  <img class="bg" src="images/bg.jpg" alt="" onerror="this.remove()">
   <div class="haze"></div>
   <div class="rays"></div>
   <div class="cloud c1"></div>
@@ -519,16 +579,17 @@
 </div>
 
 <main class="card">
-  <p class="eyebrow">Aus der Ferne, für dich</p>
-  <h1>Gute Besserung,<br><span class="name">Pingling</span> 💛</h1>
-  <p class="sub">Ohne dein Lächeln ist die Welt ein bisschen dunkler.</p>
-
   <div class="stickers">
+    <img src="images/bear.gif" alt="Milk Mocha Bär, gut zugedeckt" style="--tilt: -4deg; --delay: -.4s" onerror="this.remove()">
     <img src="images/pudgy.png" alt="Pudgy Penguin" style="--tilt: -8deg; --delay: 0s" onerror="this.remove()">
     <img src="images/adayofus.png" alt="A Day of Us" style="--tilt: 5deg; --delay: -.8s" onerror="this.remove()">
     <img src="images/tenko.png" alt="Tenko" style="--tilt: -4deg; --delay: -1.6s" onerror="this.remove()">
     <img src="images/dudububu.png" alt="Dudu und Bubu" style="--tilt: 7deg; --delay: -2.4s" onerror="this.remove()">
   </div>
+
+  <p class="eyebrow">Aus der Ferne, für dich</p>
+  <h1>Gute Besserung,<br><span class="name">Pingling</span> 💛</h1>
+  <p class="sub">Ohne dein Lächeln ist die Welt ein bisschen dunkler.</p>
 
   <div class="msg">
     <p>Ich weiß, krank sein ist das Allerschlimmste – deshalb hast du hiermit die offizielle Erlaubnis, gar nichts zu tun außer auszuruhen und zu schlafen. Alles andere kann warten.</p>
@@ -546,6 +607,23 @@
     <li>❤️ Unendlich viel Liebe</li>
   </ul>
 
+  <section class="memories" aria-labelledby="mem-title">
+    <h2 id="mem-title">Ein paar unserer Momente</h2>
+    <ul class="gallery">
+      <li class="wide"><img src="images/m01-berge.jpg" alt="Zwei Daumen hoch über den Bergen" loading="lazy" style="--pos: 50% 70%"></li>
+      <li><img src="images/m02-bluete-weiss.jpg" alt="Weiße Blüten im Frühling" loading="lazy"></li>
+      <li><img src="images/m03-kirschbluete-1.jpg" alt="Kirschblüten vor blauem Himmel" loading="lazy"></li>
+      <li><img src="images/m04-kirschbluete-2.jpg" alt="Kirschblüten" loading="lazy"></li>
+      <li><img src="images/m05-herbst-1.jpg" alt="Roter Ahorn im Herbst" loading="lazy"></li>
+      <li><img src="images/m06-herbst-2.jpg" alt="Herbstlaub von unten" loading="lazy"></li>
+      <li><img src="images/m07-herbst-3.jpg" alt="Herbstweg mit Laub" loading="lazy"></li>
+      <li><img src="images/m08-dinner.jpg" alt="Curry, Naan und Händchenhalten" loading="lazy"></li>
+      <li><img src="images/m09-teich.jpg" alt="Grüner Teich im Wald" loading="lazy"></li>
+      <li class="wide"><img src="images/m10-himmel.jpg" alt="Blauer Himmel mit Schleierwolken" loading="lazy"></li>
+    </ul>
+    <p class="plans-note">… und bald ganz viele neue. 💛</p>
+  </section>
+
   <section class="plans" aria-labelledby="plans-title">
     <h2 id="plans-title">Sobald du wieder fit bist, geht's los …</h2>
     <ul class="places">
@@ -561,8 +639,8 @@
       </li>
       <li>
         <span class="pin">🧊</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/ICEHOTEL_Main_Hall_%282014%29_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg/960px-ICEHOTEL_Main_Hall_%282014%29_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg" alt="Halle aus Eis" loading="lazy" onerror="this.remove()">
-        <span class="cap"><b>Das Eismuseum</b><small>die dickste Jacke einpacken</small></span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/I09_814_Dachstein-Eispalast_2012.jpg/960px-I09_814_Dachstein-Eispalast_2012.jpg" alt="Eispalast Dachstein" loading="lazy" onerror="this.remove()">
+        <span class="cap"><b>Eispalast Dachstein</b><small>auf 2.700 Metern – Jacke nicht vergessen</small></span>
       </li>
       <li>
         <span class="pin">🌶️</span>
@@ -576,12 +654,12 @@
       </li>
       <li>
         <span class="pin">🏟️</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Olympiastadion_at_dusk.JPG/960px-Olympiastadion_at_dusk.JPG" alt="Olympiapark in der Abenddämmerung" loading="lazy" onerror="this.remove()">
+        <img src="images/olympiapark.jpg" alt="Olympiadorf bei Nacht" loading="lazy" onerror="this.remove()">
         <span class="cap"><b>Olympiapark</b><small>Sonnenuntergang vom Olympiaberg</small></span>
       </li>
       <li class="game">
         <span class="pin">🎲</span>
-        <img src="images/bg3.jpg" alt="Baldur's Gate 3" loading="lazy" onerror="this.remove()">
+        <img src="images/bg3.jpg" alt="Pinguin-Ritter mit Flammenschwert" loading="lazy" onerror="this.remove()">
         <span class="cap"><b>Baldur's Gate 3</b><small>zu zweit durch Faerûn</small></span>
       </li>
     </ul>
@@ -590,15 +668,16 @@
 
   <p class="sig">Mit all meiner Liebe ❤️</p>
 
-  <p class="credits">Fotos via Wikimedia Commons:
+  <p class="credits">Hintergrund: „Your Name“-Fanart, illustrated by clare · Fotos via Wikimedia Commons:
     <a href="https://commons.wikimedia.org/wiki/File:Manarola_NW_Cinque_Terre_Sep23_A7C_07237.jpg">Manarola</a> (Timothy A. Gonsalves, CC BY-SA 4.0) ·
     <a href="https://commons.wikimedia.org/wiki/File:N%C3%B6rdlingen_009.jpg">Nördlingen</a> (Wolkenkratzer, CC BY-SA 4.0) ·
-    <a href="https://commons.wikimedia.org/wiki/File:ICEHOTEL_Main_Hall_(2014)_by_Alessandro_Falca_%26_AnnaSofia_M%C3%A5%C3%A5g.jpg">Icehotel</a> (Lars Thulin, CC BY-SA 4.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:I09_814_Dachstein-Eispalast_2012.jpg">Eispalast Dachstein</a> (Falk2, CC BY-SA 4.0) ·
     <a href="https://commons.wikimedia.org/wiki/File:202308_Hongya_Cave_at_night_from_Qiansimen_Bridge.jpg">Hongya Cave</a> (Jonashtand, CC BY-SA 4.0) ·
-    <a href="https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg">Tokyo Tower</a> (David Kernan, CC BY 4.0) ·
-    <a href="https://commons.wikimedia.org/wiki/File:Olympiastadion_at_dusk.JPG">Olympiapark</a> (Martin Falbisoner, CC BY-SA 3.0)
+    <a href="https://commons.wikimedia.org/wiki/File:Tokyo_Tower,_Minato_City.jpg">Tokyo Tower</a> (David Kernan, CC BY 4.0)
   </p>
 </main>
+
+<dialog class="lightbox" id="lightbox"><img alt=""></dialog>
 
 <script>
   // --- Starfield ------------------------------------------------------------
@@ -621,6 +700,21 @@
       frag.appendChild(s);
     }
     host.appendChild(frag);
+  })();
+
+  // --- Tap a photo to see it in full ------------------------------------------
+  (function () {
+    var box = document.getElementById('lightbox');
+    if (!box || !box.showModal) return;
+    var big = box.querySelector('img');
+    document.querySelectorAll('.gallery img').forEach(function (img) {
+      img.addEventListener('click', function () {
+        big.src = img.src;
+        big.alt = img.alt;
+        box.showModal();
+      });
+    });
+    box.addEventListener('click', function () { box.close(); });
   })();
 </script>
 </body>

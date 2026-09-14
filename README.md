@@ -6,25 +6,26 @@ A small get-well card for Pingling, hosted on GitHub Pages. The text is in Germa
 
 ## What is on the page
 
-- A *Your Name* (Kimi no Na wa) inspired twilight sky: layered indigo-to-orange gradient with horizon glow and light rays, a milky-way haze, soft clouds, twinkling stars, the comet with its split fragment, lens flare and glittering tail, occasional shooting stars, and an Itomori-style landscape (mountain ridges, a lake reflecting the sunset, town lights along the shore)
-- A dark frosted-glass card with a personal long-distance message, a red thread (musubi) divider and a get-well kit
-- A row of stickers (Pudgy Penguins, A Day of Us, Tenko, Dudu & Bubu) under the heading — the image files are not in the repo, see below
-- A "Sobald du wieder fit bist, geht's los …" grid of photo tiles for the trips to look forward to. The place photos are hotlinked from Wikimedia Commons (CC BY / CC BY-SA, credited at the bottom of the card); the Baldur's Gate 3 tile shows a dice on a gradient unless you add your own screenshot
-- Mobile-friendly; on phones a strip of sky is left above the card so the comet is the first thing you see. Animations are disabled for users who prefer reduced motion
+- Background: `images/bg.jpg` (a *Your Name* fan illustration by clare) if present; otherwise a CSS-drawn *kataware-doki* twilight sky with stars, comet, shooting stars and an Itomori-style landscape
+- The Milk Mocha bear GIF at the top of the card, then a dark frosted-glass card with a personal long-distance message, a red thread (musubi) divider and a get-well kit
+- "Ein paar unserer Momente" — a gallery of our own photos (tap one to see it full size)
+- "Sobald du wieder fit bist, geht's los …" — photo tiles for the trips to look forward to. Place photos are hotlinked from Wikimedia Commons (CC BY / CC BY-SA, credited at the bottom of the card); the Olympiapark and Baldur's Gate 3 tiles use our own pictures
+- Mobile-friendly; on phones a strip of sky is left above the card. Animations are disabled for users who prefer reduced motion
 
-## Adding the pictures
+## Pictures
 
-Drop the files into `images/` with these names (PNG with transparent background works best for the stickers, but any image works):
+Everything in `images/` is served as-is (no build step):
 
-| File                  | Shown as                          |
-|-----------------------|-----------------------------------|
-| `images/pudgy.png`    | Pudgy Penguin sticker             |
-| `images/adayofus.png` | A Day of Us sticker               |
-| `images/tenko.png`    | Tenko sticker                     |
-| `images/dudububu.png` | Dudu & Bubu sticker               |
-| `images/bg3.jpg`      | Photo for the Baldur's Gate 3 tile |
+| File | Used for |
+|------|----------|
+| `bg.jpg` | Page background (optional — the drawn sky is the fallback) |
+| `bear.gif` | Sticker at the top of the card |
+| `pudgy.png`, `adayofus.png`, `tenko.png`, `dudububu.png` | Further sticker slots (optional; skipped when missing) |
+| `m01-berge.jpg` … `m10-himmel.jpg` | The gallery, in order |
+| `olympiapark.jpg` | Olympiapark tile |
+| `bg3.jpg` | Baldur's Gate 3 tile |
 
-Missing files are simply skipped (the sticker row hides itself if none exist), so the page never shows a broken image. Commit and push the files and GitHub Pages picks them up.
+Photos were resized to 1400 px on the long edge and re-saved without EXIF metadata (no GPS in the repo). To add a gallery photo: resize it, drop it in `images/`, and add an `<li>` to `<ul class="gallery">` (`class="wide"` for landscape shots).
 
 ## Editing
 
