@@ -223,10 +223,11 @@
     justify-content: center;
     align-items: flex-end;
     gap: 10px 14px;
-    margin: -6px 0 18px;
+    margin: -4px 0 22px;
   }
   .stickers:not(:has(img)) { display: none; }
-  .stickers img:only-child { width: 128px; height: 128px; }
+  /* a lone sticker gets the full stage: 240px shows the 498px GIF pixel-for-pixel on 2x phone screens */
+  .stickers img:only-child { width: min(64vw, 240px); height: min(64vw, 240px); border-radius: 22px; --tilt: -3deg; }
   .stickers img {
     width: clamp(58px, 16vw, 96px);
     height: clamp(58px, 16vw, 96px);
