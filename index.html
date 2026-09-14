@@ -21,7 +21,7 @@
     --pink: #ff9db8;
     --cyan: #9fe0ff;
     --thread: #e63b5a;
-    --card: rgba(12, 16, 48, .6);
+    --card: rgba(10, 14, 44, .36);
     --card-border: rgba(255, 255, 255, .16);
     --chip: rgba(255, 255, 255, .08);
     --chip-border: rgba(255, 255, 255, .16);
@@ -171,8 +171,8 @@
     z-index: 1;
     width: min(640px, 100%);
     background: var(--card);
-    backdrop-filter: blur(18px) saturate(1.3);
-    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    backdrop-filter: blur(8px) saturate(1.2);
+    -webkit-backdrop-filter: blur(8px) saturate(1.2);
     border: 1px solid var(--card-border);
     border-radius: 28px;
     padding: clamp(28px, 6vw, 52px);
@@ -218,6 +218,7 @@
     font-family: var(--font-hand);
     font-size: clamp(1.4rem, 4.5vw, 1.9rem);
     color: var(--muted);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .55);
     margin: 0 0 22px;
   }
   /* Stickers, stuck on slightly crooked */
@@ -255,6 +256,7 @@
   .msg {
     font-size: 1.06rem;
     line-height: 1.7;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .55);
     margin: 0 auto;
     max-width: 46ch;
   }
@@ -345,6 +347,23 @@
   }
   .lightbox::backdrop { background: rgba(4, 6, 20, .92); }
   .lightbox video { cursor: default; }
+  .lightbox [hidden] { display: none !important; }   /* our display:block above must not override hidden */
+  .lightbox .close {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .35);
+    background: rgba(5, 8, 30, .6);
+    color: #fff;
+    font: 700 1.1rem/1 var(--font-body);
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  body:has(dialog[open]) { overflow: hidden; }
   .lightbox img, .lightbox video {
     display: block;
     max-width: min(96vw, 1200px);
@@ -726,7 +745,7 @@
   <p class="sig">Mit all meiner Liebe ❤️</p>
 </main>
 
-<dialog class="lightbox" id="lightbox"><img alt="" hidden><video controls playsinline hidden></video></dialog>
+<dialog class="lightbox" id="lightbox"><img alt="" hidden><video controls playsinline hidden></video><button class="close" type="button" aria-label="Schließen">✕</button></dialog>
 
 <script>
   // --- Starfield ------------------------------------------------------------
